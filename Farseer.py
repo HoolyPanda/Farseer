@@ -20,7 +20,7 @@ class Farseer:
                     print("")
                 else:
                     buddy = knocker.Knocker()
-                    buddy.SendMsg("PID: " + rPid + " is not OK", peerId = 0)
+                    buddy.SendMsg("PID: " + rPid + " is not OK", peerId = 160500068)
             time.sleep(3600)
 
         # print(a)
