@@ -5,24 +5,18 @@ import time
 class Farseer:
     def __init__(self):
         while True:
-            pids = open("./farseerConfig", 'r').readlines()
-            for rPid in pids:
-                rPid = rPid.replace('\n', '')
-                pid = ''
-                for char in rPid:
-                    if char != ' ':
-                        pid += char
-                    else:
-                        break
-                pid = pid.replace('\n', '')
+            for file in os.listdir("./pidDir"):
+                pid = open("./pidDir/" + file, 'r').readline().replace('\n', '')
                 path = '/proc/' + pid
                 if os.path.exists(path):
-                    print("")
+                    print("Pid ", file, ' is OK')
                 else:
-                    buddy = knocker.Knocker()
-                    buddy.SendMsg("PID: " + rPid + " is not OK", peerId = 160500068)
+                    buddy = knocker.Knocker(token = open('./token', 'r').readline().replace('n',''))
+                    buddy.SendMsg("PID: " + (file + ' - ' + pid) + " is not OK", peerId = 160500068)
             time.sleep(3600)
-
-        # print(a)
-
-f = Farseer()
+def SpawnConfig(name: str):
+    userName = os.getlogin()
+    config = open(str('/home/' + str(userName) + "/Farseer/pidDir/" + name), "w+")
+    config.write(str(os.getpid()))
+    config.close()
+    pass
